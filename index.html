@@ -73,6 +73,16 @@ button{transition:transform .08s,border-color .15s}button:active{transform:scale
 [data-th=reyes]{--bg:#fbf1dc;--c:#fffaf0;--t:#43301a;--m:#85694a;--p:#9c5a12;--b:#ebd8b3;--ok:#5f7d2f;--w:#b57d00;--no:#b0302a}
 [data-th=reyes] body{font:16px/1.5 "Palatino","Palatino Linotype","Book Antiqua",serif;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='230' height='230'%3E%3Cg transform='translate%2862 62%29 scale%281%29'%3E%3Ccircle r='22' fill='none' stroke='%23c98a3b' stroke-opacity='.38' stroke-width='13'/%3E%3Crect x='-3' y='-30' width='6' height='9' rx='3' transform='rotate%280%29' fill='%23c0392b' fill-opacity='.55'/%3E%3Crect x='-3' y='-30' width='6' height='9' rx='3' transform='rotate%2845%29' fill='%232e8b57' fill-opacity='.55'/%3E%3Crect x='-3' y='-30' width='6' height='9' rx='3' transform='rotate%2890%29' fill='%23e5b80b' fill-opacity='.55'/%3E%3Crect x='-3' y='-30' width='6' height='9' rx='3' transform='rotate%28135%29' fill='%23c0392b' fill-opacity='.55'/%3E%3Crect x='-3' y='-30' width='6' height='9' rx='3' transform='rotate%28180%29' fill='%232e8b57' fill-opacity='.55'/%3E%3Crect x='-3' y='-30' width='6' height='9' rx='3' transform='rotate%28225%29' fill='%23e5b80b' fill-opacity='.55'/%3E%3Crect x='-3' y='-30' width='6' height='9' rx='3' transform='rotate%28270%29' fill='%23c0392b' fill-opacity='.55'/%3E%3Crect x='-3' y='-30' width='6' height='9' rx='3' transform='rotate%28315%29' fill='%232e8b57' fill-opacity='.55'/%3E%3C/g%3E%3Cpath transform='translate%28165 70%29 scale%281.2%29' d='M-13 7V-7L-6-1L0-10L6-1L13-7V7Z' fill='%23d4a017' fill-opacity='.42'/%3E%3Cg transform='translate%28160 172%29 scale%280.75%29'%3E%3Ccircle r='22' fill='none' stroke='%23c98a3b' stroke-opacity='.38' stroke-width='13'/%3E%3Crect x='-3' y='-30' width='6' height='9' rx='3' transform='rotate%280%29' fill='%23c0392b' fill-opacity='.55'/%3E%3Crect x='-3' y='-30' width='6' height='9' rx='3' transform='rotate%2845%29' fill='%232e8b57' fill-opacity='.55'/%3E%3Crect x='-3' y='-30' width='6' height='9' rx='3' transform='rotate%2890%29' fill='%23e5b80b' fill-opacity='.55'/%3E%3Crect x='-3' y='-30' width='6' height='9' rx='3' transform='rotate%28135%29' fill='%23c0392b' fill-opacity='.55'/%3E%3Crect x='-3' y='-30' width='6' height='9' rx='3' transform='rotate%28180%29' fill='%232e8b57' fill-opacity='.55'/%3E%3Crect x='-3' y='-30' width='6' height='9' rx='3' transform='rotate%28225%29' fill='%23e5b80b' fill-opacity='.55'/%3E%3Crect x='-3' y='-30' width='6' height='9' rx='3' transform='rotate%28270%29' fill='%23c0392b' fill-opacity='.55'/%3E%3Crect x='-3' y='-30' width='6' height='9' rx='3' transform='rotate%28315%29' fill='%232e8b57' fill-opacity='.55'/%3E%3C/g%3E%3Cpath transform='translate%2855 178%29 scale%281%29' d='M-13 7V-7L-6-1L0-10L6-1L13-7V7Z' fill='%23d4a017' fill-opacity='.42'/%3E%3C/svg%3E");background-attachment:fixed}
 @media(max-width:800px){[data-th=muertos] body{background-position:left top,0 0}[data-th=mexico] body{background-position:left top}}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.cc{background:var(--c);border:1px solid var(--b);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+.cim{position:relative;aspect-ratio:1;background:var(--bg);display:grid;place-items:center;cursor:pointer;overflow:hidden}.cim img{width:100%;height:100%;object-fit:cover}
+.cph{display:grid;place-items:center;color:var(--m);gap:4px}.cph svg{width:36px;height:36px}
+.cbd{position:absolute;right:6px;bottom:6px;background:#000a;color:#fff;border-radius:99px;padding:1px 8px;font-size:12px}
+.cb{padding:10px;display:flex;flex-direction:column;gap:6px;flex:1}.cp{font-size:20px;font-weight:700;color:var(--p)}
+.cdsc{font-size:13px;min-height:2.6em;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.cthumbs{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:6px 0}.cth{position:relative;aspect-ratio:1;border-radius:8px;overflow:hidden;background:var(--bg);cursor:pointer}
+.cth img{width:100%;height:100%;object-fit:cover}.cth button{position:absolute;top:2px;right:2px;padding:2px;border-radius:99px;background:#000b;color:#fff;border:0;line-height:0}.cth button svg{width:14px;height:14px}
+@media(max-width:800px){.cgrid{grid-template-columns:repeat(2,1fr)}}
 </style></head><body>
 <nav id="nav"></nav><main></main><div id="toast"></div>
 <script>
@@ -98,12 +108,12 @@ box:'<path d="M3 7l9-4 9 4v10l-9 4-9-4zM3 7l9 4 9-4M12 11v10"/>',
 truck:'<path d="M2 6h11v10H2zM13 10h4l3 3v3h-7"/><circle cx="6" cy="18" r="1.5"/><circle cx="17" cy="18" r="1.5"/>',
 users:'<circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-4 3-6 7-6s7 2 7 6M17 5a3.5 3.5 0 010 7M19 14c2 1 3 3 3 6"/>',
 clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',chart:'<path d="M4 20V4M4 20h16M8 16v-5M13 16V8M18 16v-3"/>',
-edit:'<path d="M4 20h4L19 9l-4-4L4 16z"/>',cloud:'<path d="M7 18a4 4 0 010-8 5 5 0 019.6-1A4 4 0 0117 18z"/>',cam:'<path d="M3 8h4l2-3h6l2 3h4v11H3z"/><circle cx="12" cy="13" r="3.5"/>',cash:'<rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/>',
+edit:'<path d="M4 20h4L19 9l-4-4L4 16z"/>',cloud:'<path d="M7 18a4 4 0 010-8 5 5 0 019.6-1A4 4 0 0117 18z"/>',cam:'<path d="M3 8h4l2-3h6l2 3h4v11H3z"/><circle cx="12" cy="13" r="3.5"/>',img:'<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M3 18l6-5 4 3 3-2 5 4"/>',cash:'<rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/>',
 save:'<path d="M5 3h12l3 3v15H5zM8 3v6h8V3M8 21v-7h8v7"/>',trash:'<path d="M4 7h16M9 7V4h6v3M6 7l1 14h10l1-14"/>',x:'<path d="M6 6l12 12M18 6L6 18"/>'};
 const ic=n=>`<svg class="i" viewBox="0 0 24 24">${IC[n]}</svg>`;
 
 // ---------- Navegación ----------
-const TABS=[['caja','Caja','caja'],['inv','Inventario','box'],['pro','Proveedores','truck'],['cli','Clientes','users'],['apa','Apartados','clock'],['ven','Ventas','chart'],['cor','Corte','cash'],['res','Respaldo','save']];
+const TABS=[['caja','Caja','caja'],['inv','Inventario','box'],['cat','Catálogo','img'],['pro','Proveedores','truck'],['cli','Clientes','users'],['apa','Apartados','clock'],['ven','Ventas','chart'],['cor','Corte','cash'],['res','Respaldo','save']];
 let tab='caja',gt;
 function go(t){const ch=t!=tab;tab=t;$('#nav').innerHTML=TABS.map(x=>`<button class="${x[0]==t?'on':''}" onclick="go('${x[0]}')">${ic(x[2])}${x[1]}</button>`).join('')+themeSel();const m=$('main');V[t]();if(ch){m.classList.remove('fi');void m.offsetWidth;m.classList.add('fi')}}
 const V={};
@@ -245,7 +255,7 @@ async function editB(i){const b=i?B(i):{n:'',pr:'',items:[{id:'',q:1}]};
 async function delB(i){if(await ask('¿Eliminar este combo? Los productos no se borran.','Eliminar')){db.b=db.b.filter(b=>b.id!=i);save();bT()}}
 
 // ---------- Costos, envíos y utilidad ----------
-function fix(d){d.b=d.b||[];d.cm=d.cm||[];const g={};(d.p||[]).forEach(p=>{if(p.q0==null)p.q0=p.sk;if(!p.cp&&p.fl>0){const k=p.fg?'f'+String(p.fg).trim().toLowerCase():'s'+(p.s||'')+'|'+p.fl;let c=g[k];if(!c){c=g[k]={id:d.n++,d:'',s:p.s||'',fl:p.fl};d.cm.push(c)}else c.fl=Math.max(c.fl,p.fl);p.cp=c.id}delete p.fl;delete p.fg});const m={};(d.p||[]).forEach(p=>{if(p.cp)m[p.cp]=(m[p.cp]||0)+1});d.cm.forEach(c=>{if(c.na==null&&m[c.id])c.na=m[c.id]});return d}
+function fix(d){d.b=d.b||[];d.cm=d.cm||[];d.ct=d.ct||{};const g={};(d.p||[]).forEach(p=>{if(p.q0==null)p.q0=p.sk;if(!p.cp&&p.fl>0){const k=p.fg?'f'+String(p.fg).trim().toLowerCase():'s'+(p.s||'')+'|'+p.fl;let c=g[k];if(!c){c=g[k]={id:d.n++,d:'',s:p.s||'',fl:p.fl};d.cm.push(c)}else c.fl=Math.max(c.fl,p.fl);p.cp=c.id}delete p.fl;delete p.fg});const m={};(d.p||[]).forEach(p=>{if(p.cp)m[p.cp]=(m[p.cp]||0)+1});d.cm.forEach(c=>{if(c.na==null&&m[c.id])c.na=m[c.id]});return d}
 function fg(){const M={},g={};db.cm.forEach(c=>M[c.id]=c);db.p.forEach(p=>{const c=M[p.cp];if(c){const o=g[c.id]=g[c.id]||{f:c.fl,n:0,d:c.na||0};o.n++}});return g}
 function ucf(){const g=fg();return p=>{const o=p.cp&&g[p.cp],q=(p.q0??p.sk)||1;return (p.co+(o?o.f/Math.max(o.n,o.d):0))/q}}
 function invS(){const uc=ucf(),F=db.cm.reduce((a,c)=>a+c.fl,0);let cm=0,vv=0,cs2=0,vs=0;db.p.forEach(p=>{cm+=p.co;vv+=(p.q0??p.sk)*p.pr;cs2+=p.sk*uc(p);vs+=p.sk*p.pr});return{cm,F,cost:cm+F,val:vv,ut:vv-cm-F,cs:cs2,vs}}
@@ -288,7 +298,7 @@ async function push(){if(!cfg||pushing)return;if(!navigator.onLine)return setSy(
  catch(e){setSy('err');if(typeof e=='number')toast('Nube: revisa el token o el repositorio ('+e+')')}
  pushing=0;if(conflict)await sync()}
 function adopt(r){db=fix(r.data);cfg.sha=r.sha;cfgSave();try{localStorage.setItem(K,JSON.stringify(db))}catch(e){}setD(false);setSy('ok');go(tab);toast('Datos actualizados desde la nube')}
-async function sync(){if(!cfg||!navigator.onLine)return;lastS=Date.now();setSy('sync');
+async function sync(){if(!cfg||!navigator.onLine)return;lastS=Date.now();flushImgs();setSy('sync');
  try{const r=await pull();
   if(r.none)return push();
   if(r.sha==cfg.sha)return dirty?push():setSy('ok');
@@ -304,6 +314,46 @@ async function cloudOn(){const r=$('#gr').value.trim().replace(/^https?:\/\/gith
 async function cloudOff(){if(await ask('¿Desconectar la nube? Los datos siguen en este dispositivo.','Desconectar')){cfg=null;localStorage.removeItem('bazargh');setD(false);setSy('off');V.res()}}
 const _res=V.res;V.res=()=>{_res();$('main').insertAdjacentHTML('afterbegin',cloudBox())};
 addEventListener('online',()=>cfg&&sync());document.addEventListener('visibilitychange',()=>{if(!document.hidden&&cfg&&Date.now()-lastS>30000)sync()});
+
+// ---------- Catálogo con fotos (en la nube) ----------
+const idb=typeof indexedDB=='undefined'?Promise.resolve(null):new Promise(res=>{const r=indexedDB.open('bazarimg',1);r.onupgradeneeded=()=>{r.result.createObjectStore('i',{keyPath:'id'});r.result.createObjectStore('q',{keyPath:'id'})};r.onsuccess=()=>res(r.result);r.onerror=()=>res(null)});
+const IX=(st,m,f)=>idb.then(d=>d?new Promise(r=>{const t=d.transaction(st,m),q=f(t.objectStore(st));t.oncomplete=()=>r(q&&q.result);t.onerror=t.onabort=()=>r(null)}):null);
+const ig=id=>IX('i','readonly',o=>o.get(id)),ip=o=>IX('i','readwrite',s=>s.put(o)),idl=id=>IX('i','readwrite',s=>s.delete(id)),qa=()=>IX('q','readonly',o=>o.getAll()),qp=o=>IX('q','readwrite',s=>s.put(o)),qd=id=>IX('q','readwrite',s=>s.delete(id)),qg=id=>IX('q','readonly',o=>o.get(id));
+const ghx=(path,o={})=>fetch('https://api.github.com/repos/'+cfg.r+'/contents/'+path,{...o,headers:{Authorization:'Bearer '+cfg.t,Accept:'application/vnd.github+json',...(o.headers||{})}});
+const b64b=b=>new Promise(r=>{const f=new FileReader();f.onload=()=>r(f.result.split(',')[1]);f.readAsDataURL(b)});
+const IU={};let fl2=0,ED,cq='',cf='all';
+async function imgU(id){if(IU[id])return IU[id];let o=await ig(id);if(!(o&&o.blob)&&cfg&&navigator.onLine){try{const r=await ghx('img/'+id+'.jpg',{headers:{Accept:'application/vnd.github.raw+json'}});if(r.ok){o={id,blob:new Blob([await r.blob()],{type:'image/jpeg'})};await ip(o)}}catch(e){}}return o&&o.blob?(IU[id]=URL.createObjectURL(o.blob)):null}
+async function hyd(){const L=[...document.querySelectorAll('img[data-id]')];for(let i=0;i<L.length;i+=4)await Promise.all(L.slice(i,i+4).map(async e=>{const u=await imgU(e.dataset.id);if(u)e.src=u}))}
+async function shrink(f){const u=URL.createObjectURL(f),im=new Image();im.src=u;try{await im.decode()}catch(e){await new Promise((a,b)=>{im.onload=a;im.onerror=b})}
+ const k=Math.min(1,1000/Math.max(im.naturalWidth,im.naturalHeight)),c=document.createElement('canvas');c.width=Math.round(im.naturalWidth*k);c.height=Math.round(im.naturalHeight*k);
+ const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);
+ let b=await new Promise(r=>c.toBlob(r,'image/jpeg',.75));if(b&&b.size>200000)b=await new Promise(r=>c.toBlob(r,'image/jpeg',.6));return b}
+async function flushImgs(){if(!cfg||!navigator.onLine||fl2)return;fl2=1;let ok=0,er=0;
+ try{for(const o of (await qa())||[]){try{
+  if(o.op=='del'){const g=await ghx('img/'+o.id+'.jpg'),sha=g.ok?(await g.json()).sha:null;if(sha){const r=await ghx('img/'+o.id+'.jpg',{method:'DELETE',body:JSON.stringify({message:'borrar foto',sha})});if(!r.ok&&r.status!=404)throw r.status}await qd(o.id)}
+  else{const f=await ig(o.id);if(!(f&&f.blob)){await qd(o.id);continue}const r=await ghx('img/'+o.id+'.jpg',{method:'PUT',body:JSON.stringify({message:'foto '+o.id,content:await b64b(f.blob)})});if(!r.ok&&r.status!=422)throw r.status;await qd(o.id);ok++}
+ }catch(e){er++}}}catch(e){}
+ fl2=0;if(ok)toast('Fotos guardadas en la nube ☁');if(er)toast('Algunas fotos no se pudieron subir; se reintentará')}
+const cE=k=>db.ct[k]||{t:'',d:'',im:[]};
+const cAll=()=>[...db.b.map(b=>({k:'b'+b.id,n:b.n,pr:b.pr,ok:!!bOk(b),sub:b.items.map(x=>x.q+'× '+nm('p',x.id)).join(', ')})),...db.p.map(p=>({k:'p'+p.id,n:p.n,pr:p.pr,ok:p.sk>0,sub:''}))];
+V.cat=()=>{$('main').innerHTML=(cfg?'':`<div class="box">☁ Conecta la nube para que las fotos se guarden en GitHub y estén en todos tus dispositivos. <button onclick="go('res')">Ir a Respaldo</button></div>`)+`<div class="bar"><input placeholder="Buscar en el catálogo…" value="${esc(cq)}" oninput="cq=this.value;clearTimeout(gt);gt=setTimeout(catG,120)"><select onchange="cf=this.value;catG()">${[['all','Todos'],['av','Disponibles'],['ph','Con fotos'],['nph','Sin fotos']].map(x=>`<option value="${x[0]}" ${x[0]==cf?'selected':''}>${x[1]}</option>`).join('')}</select></div><div id="cg" class="cgrid"></div>`;catG()};
+function catG(){const s=cq.toLowerCase(),L=cAll().filter(x=>{const e=cE(x.k);return(!s||(e.t||x.n).toLowerCase().includes(s)||(e.d||'').toLowerCase().includes(s))&&(cf=='all'||(cf=='ph'&&e.im.length)||(cf=='nph'&&!e.im.length)||(cf=='av'&&x.ok))});
+ $('#cg').innerHTML=L.map(x=>{const e=cE(x.k),im=e.im;return`<div class="cc"><div class="cim" onclick="catView('${x.k}')">${im.length?`<img data-id="${im[0]}" alt="">${im.length>1?`<span class="cbd">${im.length}</span>`:''}`:`<div class="cph">${ic('img')}<small>Sin foto</small></div>`}</div><div class="cb"><b>${esc(e.t||x.n)}</b>${x.ok?'':'<span class="tag no">Agotado</span>'}<div class="cp">${money(x.pr)}</div><div class="m cdsc">${esc(e.d||x.sub)}</div><button onclick="catEdit('${x.k}')">${ic('edit')} Editar</button></div></div>`}).join('')||'<p class="m">No hay productos que mostrar.</p>';hyd()}
+function catView(k){const e=cE(k),x=cAll().find(y=>y.k==k)||{n:'',pr:0,sub:''},im=e.im;
+ modal(`${im.length?'<img id="lbi" alt="" style="width:100%;border-radius:8px;background:var(--bg);max-height:60vh;object-fit:contain">':''}<div class="cthumbs" style="margin-top:8px">${im.map(id=>`<div class="cth" onclick="lbSet('${id}')"><img data-id="${id}" alt=""></div>`).join('')}</div><h3 style="margin-top:8px">${esc(e.t||x.n)}</h3><div class="cp">${money(x.pr)}</div><p>${esc(e.d||x.sub)}</p><div class="row"><button class="pri" onclick="_o.close()">Cerrar</button></div>`);
+ if(im.length){lbSet(im[0]);hyd()}}
+function lbSet(id){imgU(id).then(u=>{const e=$('#lbi');if(e&&u)e.src=u})}
+function edTh(){$('#cth').innerHTML=ED.im.map((x,i)=>`<div class="cth"><img ${x.url?`src="${x.url}"`:`data-id="${x.id}"`} alt=""><button onclick="catRm(${i})" title="Quitar">${ic('x')}</button></div>`).join('');$('#cn').textContent='('+ED.im.length+'/5)';hyd()}
+function catRm(i){const x=ED.im.splice(i,1)[0];if(x.blob)URL.revokeObjectURL(x.url);else ED.rm.push(x.id);edTh()}
+async function catFiles(inp){const fs=[...inp.files];inp.value='';for(const f of fs){if(ED.im.length>=5){toast('Máximo 5 fotos por artículo');break}
+ try{const b=await shrink(f);ED.im.push({id:'i'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),blob:b,url:URL.createObjectURL(b)})}catch(e){toast('No se pudo leer la foto')}}edTh()}
+async function catEdit(k){const e=cE(k),it=cAll().find(y=>y.k==k);if(!it)return;ED={im:e.im.map(id=>({id})),rm:[]};
+ const pr=modal(`<h3>${esc(it.n)}</h3><label>Título<input id="ct1" maxlength="60" value="${esc(e.t||it.n)}"></label><label>Descripción breve<textarea id="cd1" rows="3" maxlength="160" style="width:100%;margin-top:3px;font:inherit;color:var(--t);background:var(--c);border:1px solid var(--b);border-radius:6px;padding:7px 9px">${esc(e.d||'')}</textarea></label><label>Fotos (máximo 5) <span id="cn"></span></label><div id="cth" class="cthumbs"></div><div class="row"><button onclick="$('#fc').click()">${ic('cam')} Tomar foto</button><button onclick="$('#fg').click()">${ic('img')} Galería</button></div><input id="fc" type="file" accept="image/*" capture="environment" hidden onchange="catFiles(this)"><input id="fg" type="file" accept="image/*" multiple hidden onchange="catFiles(this)">${cfg?'':'<p class="m" style="margin-top:6px">⚠ Sin la nube conectada, las fotos quedan solo en este dispositivo. Conéctala en Respaldo.</p>'}<div class="row"><button onclick="_o.close(null)">Cancelar</button><button class="pri" onclick="_o.close({t:$('#ct1').value.trim(),d:$('#cd1').value.trim()})">Guardar</button></div>`);
+ edTh();const r=await pr;if(!r){ED.im.forEach(x=>x.url&&URL.revokeObjectURL(x.url));return}
+ if(!await ask('¿Guardar los cambios del catálogo de "'+esc(it.n)+'"?'))return;
+ for(const x of ED.im)if(x.blob){await ip({id:x.id,blob:x.blob});await qp({id:x.id,op:'up'});IU[x.id]=x.url}
+ for(const id of ED.rm){const q=await qg(id);delete IU[id];if(q&&q.op=='up')await qd(id);else await qp({id,op:'del'});await idl(id)}
+ db.ct[k]={t:r.t==it.n?'':r.t,d:r.d,im:ED.im.map(x=>x.id)};save();toast(cfg?'Guardado · subiendo fotos a la nube…':'Guardado');flushImgs()}
 
 // ---------- Escáner de código de barras con la cámara ----------
 const nz=c=>String(c||'').trim().replace(/^0+/,''),byCode=c=>c&&db.p.find(p=>p.cd&&nz(p.cd)==nz(c));
