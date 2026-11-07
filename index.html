@@ -78,7 +78,7 @@ button{transition:transform .08s,border-color .15s}button:active{transform:scale
 .cim{position:relative;aspect-ratio:1;background:var(--bg);display:grid;place-items:center;cursor:pointer;overflow:hidden}.cim img{width:100%;height:100%;object-fit:cover}
 .cph{display:grid;place-items:center;color:var(--m);gap:4px}.cph svg{width:36px;height:36px}
 .cbd{position:absolute;right:6px;bottom:6px;background:#000a;color:#fff;border-radius:99px;padding:1px 8px;font-size:12px}
-.cb{padding:10px;display:flex;flex-direction:column;gap:6px;flex:1}.cp{font-size:20px;font-weight:700;color:var(--p)}
+.cb{padding:10px;display:flex;flex-direction:column;gap:6px;flex:1}.cb>button{margin-top:auto}.cp{font-size:20px;font-weight:700;color:var(--p)}
 .cdsc{font-size:13px;min-height:2.6em;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .cthumbs{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:6px 0}.cth{position:relative;aspect-ratio:1;border-radius:8px;overflow:hidden;background:var(--bg);cursor:pointer}
 .cth img{width:100%;height:100%;object-fit:cover}.cth button{position:absolute;top:2px;right:2px;padding:2px;border-radius:99px;background:#000b;color:#fff;border:0;line-height:0}.cth button svg{width:14px;height:14px}
@@ -255,7 +255,7 @@ async function editB(i){const b=i?B(i):{n:'',pr:'',items:[{id:'',q:1}]};
 async function delB(i){if(await ask('¿Eliminar este combo? Los productos no se borran.','Eliminar')){db.b=db.b.filter(b=>b.id!=i);save();bT()}}
 
 // ---------- Costos, envíos y utilidad ----------
-function fix(d){d.b=d.b||[];d.cm=d.cm||[];d.ct=d.ct||{};const g={};(d.p||[]).forEach(p=>{if(p.q0==null)p.q0=p.sk;if(!p.cp&&p.fl>0){const k=p.fg?'f'+String(p.fg).trim().toLowerCase():'s'+(p.s||'')+'|'+p.fl;let c=g[k];if(!c){c=g[k]={id:d.n++,d:'',s:p.s||'',fl:p.fl};d.cm.push(c)}else c.fl=Math.max(c.fl,p.fl);p.cp=c.id}delete p.fl;delete p.fg});const m={};(d.p||[]).forEach(p=>{if(p.cp)m[p.cp]=(m[p.cp]||0)+1});d.cm.forEach(c=>{if(c.na==null&&m[c.id])c.na=m[c.id]});return d}
+function fix(d){d.b=d.b||[];d.cm=d.cm||[];d.ct=d.ct||{};d.cs=d.cs||[];const g={};(d.p||[]).forEach(p=>{if(p.q0==null)p.q0=p.sk;if(!p.cp&&p.fl>0){const k=p.fg?'f'+String(p.fg).trim().toLowerCase():'s'+(p.s||'')+'|'+p.fl;let c=g[k];if(!c){c=g[k]={id:d.n++,d:'',s:p.s||'',fl:p.fl};d.cm.push(c)}else c.fl=Math.max(c.fl,p.fl);p.cp=c.id}delete p.fl;delete p.fg});const m={};(d.p||[]).forEach(p=>{if(p.cp)m[p.cp]=(m[p.cp]||0)+1});d.cm.forEach(c=>{if(c.na==null&&m[c.id])c.na=m[c.id]});return d}
 function fg(){const M={},g={};db.cm.forEach(c=>M[c.id]=c);db.p.forEach(p=>{const c=M[p.cp];if(c){const o=g[c.id]=g[c.id]||{f:c.fl,n:0,d:c.na||0};o.n++}});return g}
 function ucf(){const g=fg();return p=>{const o=p.cp&&g[p.cp],q=(p.q0??p.sk)||1;return (p.co+(o?o.f/Math.max(o.n,o.d):0))/q}}
 function invS(){const uc=ucf(),F=db.cm.reduce((a,c)=>a+c.fl,0);let cm=0,vv=0,cs2=0,vs=0;db.p.forEach(p=>{cm+=p.co;vv+=(p.q0??p.sk)*p.pr;cs2+=p.sk*uc(p);vs+=p.sk*p.pr});return{cm,F,cost:cm+F,val:vv,ut:vv-cm-F,cs:cs2,vs}}
@@ -276,7 +276,7 @@ function selUp(){[['#nsu',()=>opts('s','','Proveedor')],['#ncp',()=>copts('','Co
 // ---------- Actualización automática de pantallas ----------
 let rq=0,RN=0;const RF={caja:()=>{grid();cartV()},inv:()=>{selUp();invT()}};
 function queueRefresh(){if(rq)return;const n=RN;rq=requestAnimationFrame(()=>{rq=0;if(n!=RN||!V[tab])return;const y=scrollY;(RF[tab]||V[tab])();scrollTo(0,y)})}
-function invBox(){const x=invS();return`<div class="box"><b>Mercancía registrada</b><div>Costo de la mercancía ${money(x.cm)} + fletes ${money(x.F)} = <b>${money(x.cost)}</b></div><div>Precio × piezas de todos los artículos: ${money(x.val)} · Utilidad esperada: <b style="color:var(--ok)">${money(x.ut)}</b></div><div class="m">Lo que queda en stock: costo ${money(x.cs)} · valor de venta ${money(x.vs)} · utilidad por vender ${money(x.vs-x.cs)}</div></div>`}
+function invBox(){const x=invS();return`<div class="box"><b>Mercancía registrada</b><div>Costo de la mercancía ${money(x.cm)} + fletes ${money(x.F)} = <b>${money(x.cost)}</b></div><div>Precio × piezas de todos los artículos: ${money(x.val)} · Utilidad esperada: <b style="color:var(--ok)">${money(x.ut)}</b></div><div class="m">Lo que queda en stock: costo ${money(x.cs)} · valor de venta ${money(x.vs)} · utilidad por vender ${money(x.vs-x.cs)}</div>${db.p.length&&db.ci!=ymd(now()).slice(0,7)?'<div class="m" style="margin-top:6px">📅 Nuevo mes: descarga el reporte y actualiza la mercancía al stock actual.</div>':''}<div class="bar" style="margin:8px 0 0"><button onclick="repX()">${ic('save')} Descargar Excel (cotejo con inventario)</button><button class="pri" onclick="cierre()">Cierre de mes</button></div>${(db.cs||[]).slice(-3).reverse().map(c=>`<div class="m">Cierre ${c.m}: costo ${money(c.cost)} · utilidad esperada ${money(c.ut)}</div>`).join('')}</div>`}
 const ico=(i,uc)=>i.co!=null?i.co:(i.c||[{id:i.id,q:i.u||1}]).reduce((a,x)=>{const p=P(x.id);return a+(p?uc(p):0)*x.q},0);
 const cs=(s,i,uc,T)=>{if(s.st!='ok')return[0,0,0];const c=ico(i,uc);T.v+=i.q*i.pr;T.c+=i.q*c;return[+c.toFixed(2),+(i.q*c).toFixed(2),+(i.q*(i.pr-c)).toFixed(2)]};
 
@@ -336,7 +336,7 @@ async function flushImgs(){if(!cfg||!navigator.onLine||fl2)return;fl2=1;let ok=0
  fl2=0;if(ok)toast('Fotos guardadas en la nube ☁');if(er)toast('Algunas fotos no se pudieron subir; se reintentará')}
 const cE=k=>db.ct[k]||{t:'',d:'',im:[]};
 const cAll=()=>[...db.b.map(b=>({k:'b'+b.id,n:b.n,pr:b.pr,ok:!!bOk(b),sub:b.items.map(x=>x.q+'× '+nm('p',x.id)).join(', ')})),...db.p.map(p=>({k:'p'+p.id,n:p.n,pr:p.pr,ok:p.sk>0,sub:''}))];
-V.cat=()=>{$('main').innerHTML=(cfg?'':`<div class="box">☁ Conecta la nube para que las fotos se guarden en GitHub y estén en todos tus dispositivos. <button onclick="go('res')">Ir a Respaldo</button></div>`)+`<div class="bar"><input placeholder="Buscar en el catálogo…" value="${esc(cq)}" oninput="cq=this.value;clearTimeout(gt);gt=setTimeout(catG,120)"><select onchange="cf=this.value;catG()">${[['all','Todos'],['av','Disponibles'],['ph','Con fotos'],['nph','Sin fotos']].map(x=>`<option value="${x[0]}" ${x[0]==cf?'selected':''}>${x[1]}</option>`).join('')}</select></div><div id="cg" class="cgrid"></div>`;catG()};
+V.cat=()=>{$('main').innerHTML=(cfg?'':`<div class="box">☁ Conecta la nube para que las fotos se guarden en GitHub y estén en todos tus dispositivos. <button onclick="go('res')">Ir a Respaldo</button></div>`)+`<div class="bar"><input placeholder="Buscar en el catálogo…" value="${esc(cq)}" oninput="cq=this.value;clearTimeout(gt);gt=setTimeout(catG,120)"><select onchange="cf=this.value;catG()">${[['all','Todos'],['av','Disponibles'],['ph','Con fotos'],['nph','Sin fotos']].map(x=>`<option value="${x[0]}" ${x[0]==cf?'selected':''}>${x[1]}</option>`).join('')}</select><button class="pri" onclick="catPdf()">${ic('save')} Descargar PDF</button></div><div id="cg" class="cgrid"></div>`;catG()};
 function catG(){const s=cq.toLowerCase(),L=cAll().filter(x=>{const e=cE(x.k);return(!s||(e.t||x.n).toLowerCase().includes(s)||(e.d||'').toLowerCase().includes(s))&&(cf=='all'||(cf=='ph'&&e.im.length)||(cf=='nph'&&!e.im.length)||(cf=='av'&&x.ok))});
  $('#cg').innerHTML=L.map(x=>{const e=cE(x.k),im=e.im;return`<div class="cc"><div class="cim" onclick="catView('${x.k}')">${im.length?`<img data-id="${im[0]}" alt="">${im.length>1?`<span class="cbd">${im.length}</span>`:''}`:`<div class="cph">${ic('img')}<small>Sin foto</small></div>`}</div><div class="cb"><b>${esc(e.t||x.n)}</b>${x.ok?'':'<span class="tag no">Agotado</span>'}<div class="cp">${money(x.pr)}</div><div class="m cdsc">${esc(e.d||x.sub)}</div><button onclick="catEdit('${x.k}')">${ic('edit')} Editar</button></div></div>`}).join('')||'<p class="m">No hay productos que mostrar.</p>';hyd()}
 function catView(k){const e=cE(k),x=cAll().find(y=>y.k==k)||{n:'',pr:0,sub:''},im=e.im;
@@ -354,6 +354,85 @@ async function catEdit(k){const e=cE(k),it=cAll().find(y=>y.k==k);if(!it)return;
  for(const x of ED.im)if(x.blob){await ip({id:x.id,blob:x.blob});await qp({id:x.id,op:'up'});IU[x.id]=x.url}
  for(const id of ED.rm){const q=await qg(id);delete IU[id];if(q&&q.op=='up')await qd(id);else await qp({id,op:'del'});await idl(id)}
  db.ct[k]={t:r.t==it.n?'':r.t,d:r.d,im:ED.im.map(x=>x.id)};save();toast(cfg?'Guardado · subiendo fotos a la nube…':'Guardado');flushImgs()}
+
+// ---------- Descargas: catálogo PDF y Excel ----------
+async function downB(name,blob,type){const f=new File([blob],name,{type});if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f]});return true}catch(e){if(e.name=='AbortError')return false}}const a=document.createElement('a');a.href=URL.createObjectURL(f);a.download=name;a.click();return true}
+let PB;
+function mkPdf(pgs){const enc=new TextEncoder(),parts=[],off=[];let len=0;const push=x=>{const u=typeof x=='string'?enc.encode(x):x;parts.push(u);len+=u.length},obj=(n,b)=>{off[n]=len;push(n+' 0 obj\n'+b+'\nendobj\n')};
+ push('%PDF-1.4\n');obj(1,'<< /Type /Catalog /Pages 2 0 R >>');obj(2,'<< /Type /Pages /Kids ['+pgs.map((_,i)=>(3+3*i)+' 0 R').join(' ')+'] /Count '+pgs.length+' >>');
+ pgs.forEach((p,i)=>{const a=3+3*i,c='q 595 0 0 842 0 0 cm /Im0 Do Q';
+  obj(a,'<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /XObject << /Im0 '+(a+2)+' 0 R >> >> /Contents '+(a+1)+' 0 R >>');obj(a+1,'<< /Length '+c.length+' >>\nstream\n'+c+'\nendstream');
+  off[a+2]=len;push((a+2)+' 0 obj\n<< /Type /XObject /Subtype /Image /Width '+p.w+' /Height '+p.h+' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length '+p.jpg.length+' >>\nstream\n');push(p.jpg);push('\nendstream\nendobj\n')});
+ const n=3+3*pgs.length,xo=len;let x='xref\n0 '+n+'\n0000000000 65535 f \n';for(let i=1;i<n;i++)x+=String(off[i]).padStart(10,'0')+' 00000 n \n';
+ push(x+'trailer\n<< /Size '+n+' /Root 1 0 R >>\nstartxref\n'+xo+'\n%%EOF');return new Blob(parts,{type:'application/pdf'})}
+async function catPdf(){
+ const r=await form('Descargar catálogo (PDF)',[{l:'Nombre de tu negocio',v:db.nm||''},{l:'Contacto (teléfono o WhatsApp, opcional)',v:db.ph||''},{l:'Qué incluir',o:'<option value="av">Solo disponibles</option><option value="all">Todos</option>'}]);if(!r)return;
+ db.nm=r[0].trim();db.ph=r[1].trim();save();
+ const L=cAll().filter(x=>r[2]=='all'||x.ok);if(!L.length)return toast('No hay productos para el catálogo');toast('Preparando catálogo…');
+ const PW=1240,PH=1754,M=90,cv=document.createElement('canvas');cv.width=PW;cv.height=PH;const x=cv.getContext('2d'),acc=(getComputedStyle(document.documentElement).getPropertyValue('--p')||'').trim()||'#c8372d',FF='-apple-system,"Helvetica Neue",Arial,sans-serif',
+ pf=n=>'$'+(Number.isInteger(+n)?+n:(+n).toFixed(2)),
+ ld=id=>imgU(id).then(u=>u?new Promise(res=>{const i=new Image();i.onload=()=>res(i);i.onerror=()=>res(null);i.src=u}):null),
+ rr=(a,b,w,h,r)=>{x.beginPath();x.moveTo(a+r,b);x.arcTo(a+w,b,a+w,b+h,r);x.arcTo(a+w,b+h,a,b+h,r);x.arcTo(a,b+h,a,b,r);x.arcTo(a,b,a+w,b,r);x.closePath()},
+ pic=(i,a,b,w,h,r)=>{x.save();rr(a,b,w,h,r);x.clip();if(i){const s=Math.max(w/i.width,h/i.height),sw=w/s,sh=h/s;x.drawImage(i,(i.width-sw)/2,(i.height-sh)/2,sw,sh,a,b,w,h)}else{x.fillStyle='#f1f1ef';x.fillRect(a,b,w,h)}x.restore()},
+ wrap=(t,mw,mx)=>{const o=[];let l='';for(const w of String(t).trim().split(/\s+/).filter(Boolean)){const q=l?l+' '+w:w;if(l&&x.measureText(q).width>mw){o.push(l);l=w}else l=q}if(l)o.push(l);if(o.length>mx){o.length=mx;let z=o[mx-1]+'…';while(x.measureText(z).width>mw&&z.length>2)z=z.slice(0,-2)+'…';o[mx-1]=z}return o},
+ pages=[],end=async()=>{const b=await new Promise(r=>cv.toBlob(r,'image/jpeg',.85));pages.push({w:PW,h:PH,jpg:new Uint8Array(await b.arrayBuffer())})},
+ mes=new Date().toLocaleDateString('es-MX',{month:'long',year:'numeric'}),Mes=mes[0].toUpperCase()+mes.slice(1),nm0=db.nm||'Nuestros productos';
+ const ci=await Promise.all(L.filter(i=>cE(i.k).im.length).slice(0,3).map(i=>ld(cE(i.k).im[0])));
+ x.fillStyle='#fff';x.fillRect(0,0,PW,PH);x.fillStyle=acc;x.fillRect(M,110,90,8);
+ if(ci.length){const w=(PW-2*M-60)/3;ci.forEach((im,k)=>pic(im,M+k*(w+30),230,w,520,18))}else{x.fillStyle='#f4f2ee';rr(M,230,PW-2*M,520,18);x.fill()}
+ x.textAlign='left';x.fillStyle=acc;x.font='600 30px '+FF;x.fillText('CATÁLOGO'.split('').join(' '),M,900);
+ x.fillStyle='#1d1d1f';x.font='700 88px '+FF;wrap(nm0,PW-2*M,2).forEach((t,k)=>x.fillText(t,M,1010+k*100));
+ x.fillStyle='#6e6e73';x.font='400 32px '+FF;x.fillText(Mes+' · '+L.length+(L.length==1?' producto':' productos'),M,1230);if(db.ph)x.fillText(db.ph,M,1290);
+ await end();
+ const per=6,cw=500,ih=330,rh=450,top=190,np=Math.ceil(L.length/per);
+ for(let pg=0;pg<np;pg++){toast('Página '+(pg+1)+' de '+np+'…');const S=L.slice(pg*per,pg*per+per),imgs=await Promise.all(S.map(it=>Promise.all(cE(it.k).im.slice(0,4).map(ld))));
+  x.fillStyle='#fff';x.fillRect(0,0,PW,PH);x.fillStyle=acc;x.fillRect(M,70,60,6);x.fillStyle='#8e8e93';x.font='600 22px '+FF;x.textAlign='left';x.fillText(nm0.toUpperCase(),M,118);x.textAlign='right';x.fillText((pg+1)+' / '+np,PW-M,118);
+  x.fillStyle='#e5e5ea';x.fillRect(M,PH-100,PW-2*M,2);if(db.ph){x.fillStyle='#8e8e93';x.font='400 24px '+FF;x.textAlign='center';x.fillText(db.ph,PW/2,PH-55)}
+  S.forEach((it,k)=>{const a=M+(k%2)*(cw+60),b=top+Math.floor(k/2)*(rh+50),e=cE(it.k),im=imgs[k],tot=e.im.length;
+   if(tot>1){pic(im[0],a,b,330,ih,16);const ex=Math.min(3,tot-1),th=(ih-(ex-1)*10)/ex;for(let t=0;t<ex;t++)pic(im[1+t],a+340,b+t*(th+10),160,th,12);
+    if(tot>4){const yy=b+2*(th+10);x.fillStyle='#000a';rr(a+340,yy,160,th,12);x.fill();x.fillStyle='#fff';x.font='700 34px '+FF;x.textAlign='center';x.fillText('+'+(tot-4),a+420,yy+th/2+12)}}
+   else{pic(im[0],a,b,cw,ih,16);if(!tot){x.fillStyle='#c7c7cc';x.font='700 120px '+FF;x.textAlign='center';x.fillText((it.n||'?')[0].toUpperCase(),a+cw/2,b+ih/2+42)}}
+   if(!it.ok){x.fillStyle='#fffe';rr(a+14,b+14,120,40,20);x.fill();x.fillStyle='#1d1d1f';x.font='600 20px '+FF;x.textAlign='center';x.fillText('Agotado',a+74,b+41)}
+   const p=pf(it.pr);x.font='700 34px '+FF;const pw=x.measureText(p).width;x.font='600 28px '+FF;const ti=wrap(e.t||it.n,cw-pw-24,1)[0]||'';
+   x.textAlign='left';x.fillStyle='#1d1d1f';x.fillText(ti,a,b+ih+46);x.textAlign='right';x.fillStyle=acc;x.font='700 34px '+FF;x.fillText(p,a+cw,b+ih+46);
+   x.textAlign='left';x.fillStyle='#6e6e73';x.font='400 22px '+FF;wrap(e.d||it.sub||'',cw,2).forEach((t,j)=>x.fillText(t,a,b+ih+84+j*28))});
+  await end()}
+ const bl=mkPdf(pages);PB={name:'catalogo_'+ymd(now())+'.pdf',blob:bl,type:'application/pdf'};
+ modal(`<h3>Catálogo listo</h3><p>${pages.length} páginas · ${Math.round(bl.size/1024)} KB</p><div class="row"><button class="pri" onclick="downB(PB.name,PB.blob,PB.type)">Compartir / guardar PDF</button></div><div class="row"><button onclick="_o.close()">Cerrar</button></div>`)}
+const crcT=(()=>{const t=[];for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0}return t})();
+const crc32=u=>{let c=-1;for(let i=0;i<u.length;i++)c=crcT[(c^u[i])&255]^(c>>>8);return (c^-1)>>>0};
+function zipX(files){const enc=new TextEncoder(),parts=[],cd=[];let off=0;const w16=(a,v)=>a.push(v&255,(v>>8)&255),w32=(a,v)=>a.push(v&255,(v>>8)&255,(v>>16)&255,(v>>>24)&255);
+ for(const [name,txt] of files){const nb=enc.encode(name),d=enc.encode(txt),c=crc32(d),h=[];
+  w32(h,0x04034b50);w16(h,20);w16(h,0x0800);w16(h,0);w16(h,0);w16(h,0x21);w32(h,c);w32(h,d.length);w32(h,d.length);w16(h,nb.length);w16(h,0);parts.push(new Uint8Array(h),nb,d);
+  const e=[];w32(e,0x02014b50);w16(e,20);w16(e,20);w16(e,0x0800);w16(e,0);w16(e,0);w16(e,0x21);w32(e,c);w32(e,d.length);w32(e,d.length);w16(e,nb.length);w16(e,0);w16(e,0);w16(e,0);w16(e,0);w32(e,0);w32(e,off);cd.push(new Uint8Array(e),nb);off+=h.length+nb.length+d.length}
+ let cs=0;cd.forEach(x=>cs+=x.length);const z=[];w32(z,0x06054b50);w16(z,0);w16(z,0);w16(z,files.length);w16(z,files.length);w32(z,cs);w32(z,off);w16(z,0);
+ return new Blob([...parts,...cd,new Uint8Array(z)],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'})}
+function xlsx(sheets){const X=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])),col=i=>{let s='',n=i+1;while(n>0){s=String.fromCharCode(65+(n-1)%26)+s;n=Math.floor((n-1)/26)}return s},NS='xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"',HD='<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
+ const sh=sheets.map(S=>HD+`<worksheet ${NS}>${S.f?'<sheetViews><sheetView workbookViewId="0"><pane ySplit="1" topLeftCell="A2" activePane="bottomLeft" state="frozen"/></sheetView></sheetViews>':''}<cols>${S.w.map((w,i)=>`<col min="${i+1}" max="${i+1}" width="${w}" customWidth="1"/>`).join('')}</cols><sheetData>${S.rows.map((r,ri)=>`<row r="${ri+1}">${r.map((c,ci)=>{const o=c&&typeof c=='object'?c:{v:c,s:0},v=o.v;if(v===''||v==null)return'';const ref=col(ci)+(ri+1);return typeof v=='number'&&isFinite(v)?`<c r="${ref}" s="${o.s}"><v>${v}</v></c>`:`<c r="${ref}" t="inlineStr" s="${o.s}"><is><t xml:space="preserve">${X(v)}</t></is></c>`}).join('')}</row>`).join('')}</sheetData></worksheet>`);
+ const ct=HD+'<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>'+sheets.map((_,i)=>`<Override PartName="/xl/worksheets/sheet${i+1}.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>`).join('')+'</Types>',
+ rl=HD+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>',
+ wb=HD+`<workbook ${NS} xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets>${sheets.map((S,i)=>`<sheet name="${X(S.n)}" sheetId="${i+1}" r:id="rId${i+1}"/>`).join('')}</sheets></workbook>`,
+ wr=HD+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'+sheets.map((_,i)=>`<Relationship Id="rId${i+1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet${i+1}.xml"/>`).join('')+`<Relationship Id="rId${sheets.length+1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>`,
+ st=HD+`<styleSheet ${NS}><fonts count="2"><font><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="11"/><name val="Calibri"/></font></fonts><fills count="3"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FFEDEDED"/></patternFill></fill></fills><borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="5"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="2" borderId="0" xfId="0" applyFont="1" applyFill="1"/><xf numFmtId="4" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/><xf numFmtId="4" fontId="1" fillId="0" borderId="0" xfId="0" applyNumberFormat="1" applyFont="1"/><xf numFmtId="0" fontId="1" fillId="0" borderId="0" xfId="0" applyFont="1"/></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>`;
+ return zipX([['[Content_Types].xml',ct],['_rels/.rels',rl],['xl/workbook.xml',wb],['xl/_rels/workbook.xml.rels',wr],['xl/styles.xml',st],...sh.map((t,i)=>['xl/worksheets/sheet'+(i+1)+'.xml',t])])}
+function repBook(){const mm=cnt(),uc=ucf(),g=fg(),x0=invS(),m2=n=>({v:+(+n).toFixed(2),s:2}),b2=n=>({v:+(+n).toFixed(2),s:3}),H=a=>a.map(v=>({v,s:1})),T=v=>({v,s:4});
+ const rows=[H(['Producto','Código','Proveedor','Compra','Costo del artículo','Flete asignado','Costo total c/flete','Costo por pieza','Precio de venta','Piezas registradas','Stock actual','Piezas fuera de stock','Precio × piezas registradas','Utilidad esperada','Valor de venta del stock','Costo del stock','Utilidad del stock'])];
+ let tc=0,tf=0,tr=0,tk=0,tvr=0,tvs=0,tcs=0;
+ db.p.forEach(p=>{const c=p.cp&&db.cm.find(y=>y.id==p.cp),o=c&&g[c.id],f=o?o.f/Math.max(o.n,o.d):0,q=p.q0??p.sk,u=uc(p),vr=p.pr*q,vs=p.pr*p.sk;
+  rows.push([p.n,p.cd||'',nm('s',p.s),c?cLbl(c,mm):'',m2(p.co),m2(f),m2(p.co+f),m2(u),m2(p.pr),q,p.sk,q-p.sk,m2(vr),m2(vr-p.co-f),m2(vs),m2(u*p.sk),m2(vs-u*p.sk)]);
+  tc+=p.co;tf+=f;tr+=q;tk+=p.sk;tvr+=vr;tvs+=vs;tcs+=u*p.sk});
+ rows.push([T('TOTAL'),'','','',b2(tc),b2(tf),b2(tc+tf),'','',T(tr),T(tk),T(tr-tk),b2(tvr),b2(tvr-tc-tf),b2(tvs),b2(tcs),b2(tvs-tcs)]);
+ const res=[H(['Reporte de mercancía registrada','']),['Generado',fh(now())],['Productos',db.p.length],[],[T('Mercancía registrada'),''],['Costo de los artículos',m2(x0.cm)],['Fletes de las compras registradas',m2(x0.F)],[T('Costo total de la mercancía'),b2(x0.cost)],['Precio × piezas registradas',m2(x0.val)],[T('Utilidad esperada'),b2(x0.ut)],[],[T('Lo que queda en stock'),''],['Costo del stock (con flete)',m2(x0.cs)],['Valor de venta del stock',m2(x0.vs)],[T('Utilidad por vender el stock'),b2(x0.vs-x0.cs)]];
+ const m=cnt(),cp=[H(['Fecha','Proveedor','Flete','Artículos registrados','Artículos declarados','Estado']),...db.cm.slice().sort((a,b)=>(b.d||'').localeCompare(a.d||'')).map(c=>[c.d||'',nm('s',c.s),m2(c.fl),m[c.id]||0,c.na||'',isOpen(c,m)?'Abierta':'Completa'])];
+ return xlsx([{n:'Cotejo con inventario',f:1,w:[28,14,16,34,14,12,16,14,12,14,12,16,18,16,18,14,16],rows},{n:'Resumen',w:[38,18],rows:res},{n:'Compras',f:1,w:[14,18,12,18,18,12],rows:cp}])}
+const XT='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',xName=()=>'mercancia_utilidad_'+ymd(now())+'.xlsx';
+async function repX(){await downB(xName(),repBook(),XT)}
+function rebase(){const uc=ucf(),m=cnt(),keep=new Set(db.cm.filter(c=>isOpen(c,m)).map(c=>c.id));
+ db.p.forEach(p=>{if(p.cp&&keep.has(p.cp))return;p.co=+(uc(p)*p.sk).toFixed(2);p.q0=p.sk;p.cp=0});db.cm=db.cm.filter(c=>keep.has(c.id))}
+async function cierre(){if(!await ask('<b>Cierre de mes</b><br>1) Se descarga el Excel con el cotejo del inventario.<br>2) Después la mercancía registrada se actualiza al stock actual: ya no se acumulan compras ni costos de piezas que ya vendiste.<br>Tus ventas, tu stock y tus cortes no cambian.','Continuar'))return;
+ if(!await downB(xName(),repBook(),XT))return toast('No se descargó el archivo, así que no se actualizó nada');
+ if(!await ask('El archivo ya se descargó. ¿Actualizar ahora la mercancía registrada al stock actual?','Actualizar'))return;
+ const x=invS(),mes=ymd(now()).slice(0,7);db.cs.push({d:now(),m:mes,cost:x.cost,val:x.val,ut:x.ut});rebase();db.ci=mes;save();toast('Listo: mercancía actualizada al stock actual')}
 
 // ---------- Escáner de código de barras con la cámara ----------
 const nz=c=>String(c||'').trim().replace(/^0+/,''),byCode=c=>c&&db.p.find(p=>p.cd&&nz(p.cd)==nz(c));
